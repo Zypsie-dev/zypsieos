@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.frosted-glass {
+  /* Background color with transparency */
+  background: rgba(4, 4, 4, 0.165); /* Adjust the alpha for transparency */
+  /* Apply the frosted glass effect */
+  backdrop-filter: blur(10rem); /* Adjust the blur level */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  text-align: center; /* Center text */
+  color: white; /* White text */
+}
+
+@layer utilities {
+  .macos-cursor {
+    cursor:
+      url('/cursor/default.svg'),
+      auto;
+  }
+  .macos-hand {
+    cursor:
+      url('/cursor/hand2.svg'),
+      pointer;
+  }
+}
