@@ -12,7 +12,7 @@ export default function Dock() {
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
       <motion.div
         animate={{ y: 0 }}
-        className="flex items-end space-x-2 bg-background/60 dark:bg-default-100/50 backdrop-blur-md rounded-2xl p-2 shadow-lg"
+        className="flex items-end space-x-2 frosted-glass rounded-2xl p-2 shadow-lg"
         initial={{ y: 100 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >

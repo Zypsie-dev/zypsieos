@@ -2,24 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 .frosted-glass {
-  /* Background color with transparency */
-  background: rgba(4, 4, 4, 0.165); /* Adjust the alpha for transparency */
-  /* Apply the frosted glass effect */
-  backdrop-filter: blur(10rem); /* Adjust the blur level */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  text-align: center; /* Center text */
-  color: white; /* White text */
+  /* From https://css.glass */
+  background: rgba(9, 9, 9, 0.29);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.9px);
+  -webkit-backdrop-filter: blur(5.9px);
 }
 
+.menu-glass {
+  /* From https://css.glass */
+  color: rgba(0, 0, 0, 0.63);
+background: rgba(255, 255, 255, 0.63);
+border-radius: 0.5rem;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3.1px);
+-webkit-backdrop-filter: blur(3.1px);
+}
 @layer utilities {
   .macos-cursor {
-    cursor:
-      url('/cursor/default.svg'),
-      auto;
+    cursor: url('/cursor/default.svg'), auto;
   }
   .macos-hand {
-    cursor:
-      url('/cursor/hand2.svg'),
-      pointer;
+    cursor: url('/cursor/hand2.svg'), pointer;
   }
 }
+

@@ -11,12 +11,12 @@ interface AppleProps {
   size: string;
   color: string;
   trigger: ReactNode;
-  items: { key: string; label: string; isDanger?: boolean }[];
+  items: { key: string; label: string; isDanger?: boolean, shortCut?:string,section?:boolean }[];
 }
 
 const Menu = ({ trigger, items }: AppleProps) => {
   return (
-    <Dropdown>
+    <Dropdown className='menu-glass m-0'>
       <DropdownTrigger className="hover:macos-hand">
         {trigger ? (
           trigger
@@ -28,8 +28,10 @@ const Menu = ({ trigger, items }: AppleProps) => {
         {items.map((item) => (
           <DropdownItem
             key={item.key}
-            className={item.isDanger ? 'text-danger' : ''}
+            className={item.isDanger ? 'text-danger' : 'm-0 p-1.5 '}
             color={item.isDanger ? 'danger' : undefined}
+            shortcut={item.shortCut}
+           // showDivider={item.section}
           >
             {item.label}
           </DropdownItem>
