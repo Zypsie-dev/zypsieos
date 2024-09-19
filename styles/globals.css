@@ -1,6 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Light mode */
+  --color-primary: #60a5fa; /* Light Blue */
+  --color-secondary: #60a5fa; /* Emerald Green */
+  --color-success: #10b981; /* Light Blue */
+  --color-warning: #f59e0b; /* Amber */
+  --color-danger: #ff4d4f; /* Red */
+  --color-focus: #60a5fa; /* Light Blue */
+  --color-divider: #e5e7eb; /* Light Gray */
+}
+
+/* Dark mode */
+.dark {
+  --color-primary: #4b5563; /* Slate Gray */
+  --color-secondary: #4b5563; /* Emerald Green */
+  --color-success: #10b981; /* Slate Gray */
+  --color-warning: #f59e0b; /* Amber */
+  --color-danger: #ff4d4f; /* Red */
+  --color-focus: #60a5fa; /* Light Blue */
+  --color-divider: #374151; /* Charcoal Gray */
+}
+
 .frosted-glass {
   /* From https://css.glass */
   background: rgba(9, 9, 9, 0.29);
@@ -12,11 +35,14 @@
 .menu-glass {
   /* From https://css.glass */
   color: rgba(0, 0, 0, 0.63);
-background: rgba(255, 255, 255, 0.63);
-border-radius: 0.5rem;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(3.1px);
--webkit-backdrop-filter: blur(3.1px);
+  background: rgba(255, 255, 255, 0.63);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.1px);
+  -webkit-backdrop-filter: blur(3.1px);
+}
+.topbar header {
+  height: fit-content;
 }
 @layer utilities {
   .macos-cursor {
@@ -25,5 +51,37 @@ backdrop-filter: blur(3.1px);
   .macos-hand {
     cursor: url('/cursor/hand2.svg'), pointer;
   }
+}
+
+/* Styling for Webkit browsers (Chrome, Safari, newer versions of Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(165, 165, 165);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+    cursor: url('/cursor/hand2.svg'), pointer;
+
+}
+
+/* Styling for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* For Internet Explorer and Edge Legacy */
+body {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 

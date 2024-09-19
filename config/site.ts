@@ -48,24 +48,40 @@ export const siteConfig = {
     },
   ],
   dockMenu: [
-    { name: 'Finder', icon: '/icons/dock/finder.png' },
-    { name: 'Mail', icon: '/icons/dock/mail.png' },
-    { name: 'Chrome', icon: '/icons/dock/chrome.png' },
-    { name: 'Music', icon: '/icons/dock/music.png' },
-    { name: 'Photos', icon: '/icons/dock/photos.png' },
-    { name: 'Terminal', icon: '/icons/dock/terminal.png' },
+    { name: 'Finder', icon: '/icons/dock/finder.png', id: 'Finder' },
+    { name: 'Mail', icon: '/icons/dock/mail.png', id: 'Mail' },
+    { name: 'Music', icon: '/icons/dock/music.png', id: 'Music' },
+    { name: 'Photos', icon: '/icons/dock/photos.png', id: 'Photos' },
+    {
+      name: 'Terminal',
+      icon: '/icons/dock/terminal.png',
+      id: 'terminal-window',
+    },
   ],
   appleMenu: [
     { key: 'about', label: 'About This Mac', section: true },
-    { key: 'system', label: 'System Preferences', section: false },
-    { key: 'appstore', label: 'App Store', section: true },
-    { key: 'recent', label: 'Recent Items', section: true },
-    { key: 'force', label: 'Force Quit', shortCut: '⌘⇧F', section: true },
-    { key: 'sleep', label: 'Sleep', section: true },
-    { key: 'restart', label: 'Restart', section: false },
-    { key: 'shutdown', label: 'Shut Down', section: false },
-    { key: 'lock', label: 'Lock Screen', section: true },
-    { key: 'logout', label: 'Log Out', section: false },
+    {
+      key: 'system',
+      label: 'System Preferences',
+      section: false,
+      onCLick: 'system',
+    },
+    { key: 'recent', label: 'Recent Items', section: true, onCLick: 'recent' },
+    {
+      key: 'force',
+      label: 'Force Quit',
+      shortCut: '⌘⇧F',
+      section: true,
+      onCLick: 'force',
+    },
+    { key: 'sleep', label: 'Sleep', section: true, onCLick: 'sleep' },
+    { key: 'restart', label: 'Restart', section: false, onCLick: 'restart' },
+    {
+      key: 'shutdown',
+      label: 'Shut Down',
+      section: false,
+      onCLick: 'shutdown',
+    }
   ],
   links: {
     github: 'https://github.com/nextui-org/nextui',
@@ -74,17 +90,5 @@ export const siteConfig = {
     discord: 'https://discord.gg/9b6yyZKmH4',
     sponsor: 'https://patreon.com/jrgarciadev',
   },
-}; 
-
-
-
-
-
-
-
-
-
-
-
-
+};
 

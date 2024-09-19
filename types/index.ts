@@ -15,5 +15,28 @@ export interface NavMenuIcon {
 export interface SiteConfig {
   navItems: NavItem[];
   navMenuIcons: NavMenuIcon[];
+}
 
+type FileType = 'file' | 'folder';
+
+export interface File {
+  id: string;
+  name: string;
+  type: FileType;
+  content?: string;
+  parentId?: string | null;
+  children?: File[];
+}
+
+interface navItems{
+  id: string;
+  name: string;
+  icon: any;
+  color?: string;
+}
+export interface sideNavItems {
+  id: string;
+  title: string;
+  icon?: any;
+  items: navItems[];
 }

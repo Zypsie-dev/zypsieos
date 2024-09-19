@@ -7,7 +7,7 @@ import {
   NavbarItem,
 } from '@nextui-org/navbar';
 
-import { ControlCenter } from './controlCenterIcon';
+import { ControlCenter } from './ControlCenterIcon';
 import Apple from './TopBar/appleLogo';
 import Battery from './TopBar/battery';
 
@@ -48,7 +48,7 @@ export default function TopBar() {
 
   return (
     <Navbar
-      className="min-h-[1.5rem] h-2 flex flex-row frosted-glass"
+      className="min-h-[1.5rem] h-2 flex flex-row frosted-glass topbar"
       maxWidth="full"
     >
       <NavbarBrand className="m-0 p-0 max-w-fit max-h-fit">
