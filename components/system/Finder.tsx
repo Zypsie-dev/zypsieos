@@ -78,7 +78,7 @@ export default function Component() {
         extension === 'webp'
       ) {
         addWindow(
-          file.name,
+          'PhotoViewer',
           <PhotoViewer photoName={file.name}/>,
           600,
           400

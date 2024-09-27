@@ -45,7 +45,7 @@ export default function Dock() {
           addWindow(appId, <Music />, 600, 400);
           break;
         case 'Photos':
-          addWindow(appId, <Photos />, 600, 400);
+          addWindow(appId, <Photos />, 700, 450);
           break;
         case 'Terminal':
           addWindow(appId, <Terminal/>, 600, 400);

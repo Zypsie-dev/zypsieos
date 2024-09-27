@@ -110,19 +110,19 @@ export default function WelcomeDialog({ onClose:onClose }:{onClose:()=>void}) {
       className="w-full h-full flex items-center justify-center overflow-hidden bg-gray-900 bg-opacity-50 backdrop-blur-md"
     >
       <Card className="w-full h-full mx-auto bg-gradient-to-br from-gray-800 to-gray-900 text-white shadow-2xl rounded-3xl overflow-hidden">
-        <CardHeader className="flex justify-center pt-8">
+        <CardHeader className="flex justify-center pt-4 pb-0">
           <motion.div variants={itemVariants}>
-            <Apple size={48} className="text-blue-400" />
+            <img src='/dragon.png' alt='Logo' className='w-32 h-32 mx-auto'/>
           </motion.div>
         </CardHeader>
-        <CardBody className="flex flex-col items-center text-center px-8 overflow-hidden">
+        <CardBody className="flex flex-col items-center text-center overflow-hidden">
           <motion.h2
             variants={itemVariants}
-            className="text-3xl font-bold mb-4"
+            className="text-xl font-bold mb-2"
           >
-            Welcome to Your Mac OS Clone
+            Welcome to Nabin`s Portfolio
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-gray-300 mb-8">
+          <motion.p variants={itemVariants} className="text-gray-300 mb-2">
             Explore the features of your new web-based Mac OS experience:
           </motion.p>
           <AnimatePresence mode="wait">

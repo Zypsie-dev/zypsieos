@@ -18,10 +18,10 @@ export default function Desktop() {
     if (isFirstTime) {
       setTimeout(() => {
         addWindow(
-          'Welcome',
+          'welcome',
           <WelcomeDialog
             onClose={() => {
-              removeWindow('Welcome');
+              removeWindow('welcome');
             }}
           />,
           900,

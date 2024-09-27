@@ -39,7 +39,7 @@ export default function MusicApp({ songName }: { songName?: string }) {
         const response = await fetch('/api/Music');
 
         if (!response.ok) {
-          throw new Error('Failed to fetch songs');
+        throw new Error('Failed to fetch songs');
         }
         const data = await response.json();
 
