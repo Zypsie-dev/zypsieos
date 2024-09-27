@@ -21,6 +21,7 @@ import { renderFileIcon } from '@/lib/renderFileIcon';
 import { useFileSystem } from '@/Context/FileSystemContext';
 import { useWindowContext } from '@/Context/windowContext';
 import { File, sideNavItems } from '@/types';
+import PDFViewer from '@/components/PdfViewer';
 
 const ViewMode = {
   GRID: 'grid',
@@ -90,6 +91,15 @@ export default function Component() {
           600,
           400
         );
+      }
+      else if(extension === 'pdf') {
+        addWindow(
+          'PDF Viewer',
+          <PDFViewer pdfUrl={file.name} />,
+          600,
+          400
+        );
+        console.log(file.name);
       }
     }
   };
