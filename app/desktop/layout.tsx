@@ -1,7 +1,7 @@
 import { Providers } from '../providers';
 
 import TopBar from '@/components/system/TopBar';
-import Dock from '@/components/system/dock';
+import Dock from '@/components/system/Dock';
 
 export default function RootLayout({
   children,

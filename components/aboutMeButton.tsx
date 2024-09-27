@@ -11,7 +11,7 @@ export default function Icon() {
         <Image
         alt="About Me"
         height={40}
-            src="/Icons/dock/aboutme.svg"
+            src="/icons/dock/aboutme.svg"
             width={40}
             onClick={() => addWindow('aboutme', <AboutMe />, 600, 400)}
         />

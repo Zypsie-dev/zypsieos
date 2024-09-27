@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Rnd } from 'react-rnd';
+import Image from 'next/image';
+
 import { useWindowContext } from '@/Context/windowContext';
 
 export default function MacOSWindow({
@@ -37,6 +39,7 @@ export default function MacOSWindow({
   useEffect(() => {
     if (isOpening) {
       const timer = setTimeout(() => setIsOpening(false), 300);
+
       return () => clearTimeout(timer);
     }
   }, [isOpening]);
@@ -48,6 +51,7 @@ export default function MacOSWindow({
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -56,6 +60,7 @@ export default function MacOSWindow({
   const handleMinimize = () => {
     if (isMobile) {
       minimizeWindow(id);
+
       return;
     }
 
@@ -191,7 +196,7 @@ export default function MacOSWindow({
             />
           </div>
           <div className="flex items-center justify-center absolute left-0 right-0 pointer-events-none">
-            <img alt={title} className="w-5 h-5 mr-2" src={icon} />
+            <Image alt={title} className="w-5 h-5 mr-2" src={icon} />
             <h3 className="text-sm font-medium text-gray-200">{title}</h3>
           </div>
         </div>

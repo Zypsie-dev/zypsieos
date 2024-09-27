@@ -12,7 +12,7 @@ export const renderFileIcon = ({ file, size }: { file: any; size: number }) => {
       );
     } else {
       const extension = file.name.split('.').pop()?.toLowerCase();
-      let iconPath = '/Icons/files/';
+      let iconPath = '/icons/files/';
 
       if (
         extension === 'jpg' ||

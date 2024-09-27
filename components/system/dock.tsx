@@ -6,7 +6,7 @@ import { Tooltip } from '@nextui-org/tooltip';
 import Image from 'next/image';
 
 import AboutMe from '../aboutme';
-import WelcomeDialog from '../welcome';
+
 import Terminal from './TerminalComponent';
 import Music from './MusicPlayer';
 import Finder from './Finder'; 

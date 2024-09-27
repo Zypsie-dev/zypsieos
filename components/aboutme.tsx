@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Image } from '@nextui-org/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github,
@@ -12,7 +13,7 @@ import {
 } from 'lucide-react';
 
 import { useWindowContext } from '@/Context/windowContext';
-import { Image } from '@nextui-org/image';
+
 
 interface Project {
   name: string;
@@ -257,7 +258,7 @@ export default function WelcomeContent() {
             {activeTab === 'about' && (
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
-                  <img
+                  <Image
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-blue-500 object-cover"
                     src="/me.jpg"
@@ -345,7 +346,7 @@ export default function WelcomeContent() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.name}
                       className="w-full h-48 object-cover"
@@ -364,7 +365,7 @@ export default function WelcomeContent() {
                       </p>
                       <div className="flex flex-wrap gap-2 mb-2">
                         {project.tags.map((tag, tagIndex) => (
-                          <img
+                          <Image
                             key={tagIndex}
                             alt={tag}
                             className={`w-10 h-10 object-cover ${tag === 'express' || tag === 'socketio' ? 'bg-gray-400' : ''} rounded-full`}
@@ -402,7 +403,7 @@ export default function WelcomeContent() {
 function TechIcon({ name, icon }: { name: string; icon: string }) {
   return (
     <div className="flex flex-col items-center">
-      <img
+      <Image
         alt={name}
         className={`w-10 h-10 object-cover ${icon === 'express' || icon === 'socketio' ? 'bg-gray-400' : ''} rounded-full`}
         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon}/${icon}-${icon === 'tailwincss' || icon === 'graphql' ? 'plain' : 'original'}.svg`}
