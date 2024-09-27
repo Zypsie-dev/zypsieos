@@ -7,7 +7,7 @@ import {
   NavbarItem,
 } from '@nextui-org/navbar';
 
-import { ControlCenter } from './controlCenterIcon';
+import { ControlCenter } from './ControlCenterIcon';
 import Apple from './TopBar/appleLogo';
 import Battery from './TopBar/battery';
 
