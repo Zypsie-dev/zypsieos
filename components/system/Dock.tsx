@@ -62,7 +62,7 @@ export default function Dock() {
   };
 
   return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 hover:z-[99999]">
       <motion.div
         animate={{ y: 0 }}
         className="flex items-end space-x-2 frosted-glass rounded-2xl p-2 shadow-lg"

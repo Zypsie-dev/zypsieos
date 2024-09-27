@@ -180,12 +180,12 @@ export default function MacOSWindow({
         <div className="window-header flex items-center p-2 bg-gray-700 macos-cursor">
           <div className="flex space-x-2 items-center">
             <button
-              className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-200 focus:outline-none"
+              className="w-3 h-3 macos-hand rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-200 focus:outline-none"
               onClick={handleClose}
               aria-label="Close"
             />
             <button
-              className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 focus:outline-none"
+              className="w-3 h-3 macos-hand rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 focus:outline-none"
               onClick={handleMinimize}
               aria-label="Minimize"
             />
@@ -196,7 +196,13 @@ export default function MacOSWindow({
             />
           </div>
           <div className="flex items-center justify-center absolute left-0 right-0 pointer-events-none">
-            <Image alt={title} className="w-5 h-5 mr-2" src={icon} />
+            <Image
+              alt={title}
+              className="w-5 h-5 mr-2"
+              src={icon}
+              width={20}
+              height={20}
+            />
             <h3 className="text-sm font-medium text-gray-200">{title}</h3>
           </div>
         </div>

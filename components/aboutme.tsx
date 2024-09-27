@@ -261,7 +261,7 @@ export default function WelcomeContent() {
                   <Image
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-blue-500 object-cover"
-                    src="/me.jpg"
+                    src="/me.JPG"
                   />
                   <div>
                     <h3 className="text-2xl font-bold text-white">
@@ -346,10 +346,10 @@ export default function WelcomeContent() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Image
-                      src={project.image}
+                    <img
                       alt={project.name}
                       className="w-full h-48 object-cover"
+                      src={project.image}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/70 opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
                     <div className="absolute inset-0 p-4 flex flex-col justify-end min-h-fit">

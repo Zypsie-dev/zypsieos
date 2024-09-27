@@ -26,7 +26,7 @@ export default function Terminal() {
 
   const [input, setInput] = useState('');
   const [lines, setLines] = useState<TerminalLine[]>([
-    { text: 'Welcome to macOS Terminal', type: 'output' },
+    { text: 'Welcome to macOS Terminal \n Enter help to see the commands lists.', type: 'output' },
   ]);
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -368,10 +368,6 @@ export default function Terminal() {
     addLine('Available commands:');
     addLine('  ls              - List directory contents');
     addLine('  cd <dir>        - Change directory');
-    addLine('  mkdir <dir>     - Create a new directory');
-    addLine('  touch <file>    - Create a new file');
-    addLine('  rm <file>       - Remove a file or directory');
-    addLine('  mv <old> <new>  - Move or rename a file');
     addLine('  cat <file>      - Display file contents');
     addLine('  pwd             - Print working directory');
     addLine('  tag <file> <tag> - Add a tag to a file');
@@ -419,7 +415,7 @@ export default function Terminal() {
   };
 
   return (
-    <div className="bg-gray-900 text-green-400 font-mono text-sm w-full h-full flex flex-col rounded-lg shadow-lg border border-gray-700">
+    <div className="bg-gray-900 text-green-400 font-mono text-sm w-full h-full flex flex-col p-3 shadow-lg border border-gray-700">
       <div className="flex-grow overflow-y-auto mb-2 custom-scrollbar">
         {lines.map((line, index) => (
           <div

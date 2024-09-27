@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Input } from '@nextui-org/input';
-import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
 import { Slider } from '@nextui-org/slider';
 import {
@@ -13,6 +12,7 @@ import {
   VolumeIcon,
 } from 'lucide-react';
 
+import Button from '@/components/system/MacButton';
 interface Song {
   title: string;
   artist: string;
@@ -178,7 +178,7 @@ export default function MusicApp({ songName }: { songName?: string }) {
   }
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 text-white">
+    <div className="flex flex-col h-full bg-gray-900 text-white macos-cursor">
       <div className="flex flex-1 overflow-hidden">
         <div className="w-64 bg-gray-800 p-4 overflow-y-auto">
           <Input
