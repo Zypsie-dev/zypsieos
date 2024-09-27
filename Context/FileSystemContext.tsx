@@ -1,7 +1,9 @@
+'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface File {
-  id: string;
+  id: string | null;
   parentId: string | null;
   name: string;
   type: 'file' | 'folder';
@@ -11,9 +13,9 @@ interface File {
 
 interface FileSystemContextType {
   files: File[];
-  addFile: (file: File) => void;
-  deleteFile: (id: string) => void;
-  updateFile: (id: string, updates: Partial<File>) => void;
+  addFile: (file: Omit<File, 'id' | 'lastAccessed'>) => Promise<void>;
+  deleteFile: (id: string) => Promise<void>;
+  updateFile: (id: string, updates: Partial<File>) => Promise<void>;
   getChildren: (parentId: string | null) => File[];
   currentDirectory: string | null;
   setCurrentDirectory: React.Dispatch<React.SetStateAction<string | null>>;
@@ -40,67 +42,68 @@ export const useFileSystem = () => {
 export const FileSystemProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [files, setFiles] = useState<File[]>([
-    {
-      id: '0',
-      parentId: null,
-      name: 'Zypsie',
-      type: 'folder',
-      tags: [],
-      lastAccessed: new Date(),
-    },
-    {
-      id: '1',
-      parentId: '0',
-      name: 'Desktop',
-      type: 'folder',
-      tags: [],
-      lastAccessed: new Date(),
-    },
-    {
-      id: '2',
-      parentId: '1',
-      name: 'Documents',
-      type: 'folder',
-      tags: [],
-      lastAccessed: new Date(),
-    },
-    {
-      id: '3',
-      parentId: '0',
-      name: 'Applications',
-      type: 'folder',
-      tags: [],
-      lastAccessed: new Date(),
-    },
-  ]);
-
-  const [currentDirectory, setCurrentDirectory] = useState<string | null>('0');
+  const [files, setFiles] = useState<File[]>([]);
+  const [currentDirectory, setCurrentDirectory] = useState<string | null>(null);
   const [recentFiles, setRecentFiles] = useState<File[]>([]);
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
 
   useEffect(() => {
     updateRecentFiles();
   }, [files]);
 
-  const addFile = (newFile: File) => {
-    setFiles((prevFiles) => [
-      ...prevFiles,
-      { ...newFile, lastAccessed: new Date() },
-    ]);
+  const fetchFiles = async () => {
+    try {
+      const response = await fetch('/api/filesystem');
+      const data = await response.json();
+
+      setFiles(data);
+      setCurrentDirectory(currentDirectory?currentDirectory:null);
+    } catch (error) {
+      console.error('Failed to fetch files:', error);
+    }
   };
 
-  const deleteFile = (id: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.id !== id));
+  const addFile = async (newFile: Omit<File, 'id' | 'lastAccessed'>) => {
+    try {
+      await fetch('/api/filesystem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newFile),
+      });
+      await fetchFiles();
+    } catch (error) {
+      console.error('Failed to add file:', error);
+    }
   };
 
-  const updateFile = (id: string, updates: Partial<File>) => {
-    setFiles((prevFiles) =>
-      prevFiles.map((file) =>
-        file.id === id
-          ? { ...file, ...updates, lastAccessed: new Date() }
-          : file
-      )
-    );
+  const deleteFile = async (id: string) => {
+    try {
+      await fetch('/api/filesystem', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      await fetchFiles();
+    } catch (error) {
+      console.error('Failed to delete file:', error);
+    }
+  };
+
+  const updateFile = async (id: string, updates: Partial<File>) => {
+    try {
+      await fetch('/api/filesystem', {
+        method: 'PUT',
+        
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, updates }),
+      });
+      await fetchFiles();
+    } catch (error) {
+      console.error('Failed to update file:', error);
+    }
   };
 
   const getChildren = (parentId: string | null) => {
@@ -110,8 +113,13 @@ export const FileSystemProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateRecentFiles = () => {
     const sortedFiles = [...files]
       .filter((file) => file.type === 'file')
-      .sort((a, b) => b.lastAccessed.getTime() - a.lastAccessed.getTime());
-    setRecentFiles(sortedFiles.slice(0, 10)); // Get the 10 most recently accessed files
+      .sort(
+        (a, b) =>
+          new Date(b.lastAccessed).getTime() -
+          new Date(a.lastAccessed).getTime()
+      );
+      
+    setRecentFiles(sortedFiles.slice(0, 10));
   };
 
   const getFilesByTag = (tag: string) => {

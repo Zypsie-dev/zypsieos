@@ -1,9 +1,22 @@
 'use client';
+import { useEffect, useState } from 'react';
+
 import MacOSWindow from '@/components/system/MacOSWindow';
 import { useWindowContext } from '@/Context/windowContext';
-
+import WelcomeDialog from '@/components/welcome';
 export default function Desktop() {
-  const { windows } = useWindowContext();
+  const { windows,addWindow,removeWindow } = useWindowContext();
+ const [firstTime, setFirstTime] = useState(localStorage.getItem('firstTime') === null);
+
+  useEffect(() => {
+    if (firstTime) {
+      setFirstTime(false);
+      setTimeout(() => {
+       addWindow('Welcome',<WelcomeDialog onClose={()=>{removeWindow('Welcome')}}/> , 900,500);
+      }, 3000);
+      localStorage.setItem('firstTime', 'true');
+    }
+  }, [firstTime]);
 
   return (
     <>
@@ -20,25 +33,6 @@ export default function Desktop() {
         </MacOSWindow>
       ))}
     </>
-    // <div className="p-4">
-    //   {windows.some((w) => w.id === 'mail-window') && (
-    //     <MacOSWindow id='mail-window' title="Mail">
-    //       <div className="p-4">
-    //         <h1 className="text-2xl font-bold">Mail App</h1>
-    //         <p>Welcome to your Mail app!</p>
-    //       </div>
-    //     </MacOSWindow>
-    //   )}
-
-    //   {windows.some((w) => w.id === 'home-window') && (
-    //     <MacOSWindow id="home-window" title="Other App">
-    //       <div className="p-4">
-    //         <h1 className="text-2xl font-bold">Other App</h1>
-    //         <p>This is another app window.</p>
-    //       </div>
-    //     </MacOSWindow>
-    //   )}
-    // </div>
   );
 }
 

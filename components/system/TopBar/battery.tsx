@@ -52,7 +52,27 @@ export default function Battery() {
   if (!batteryStatus) {
     return (
       <div className="text-sm text-gray-500">
-        Loading battery information...
+        <svg
+          className="hover:macos-hand"
+          fill="none"
+          height="24"
+          viewBox="0 0 26 20"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            height="10"
+            rx="2"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            width="18"
+            x="1"
+            y="7"
+          />
+
+          <rect fill="currentColor" height="4" width="2" x="20" y="10" />
+
+        </svg>
       </div>
     );
   }
@@ -85,8 +105,8 @@ export default function Battery() {
 
         {batteryStatus.charging && (
           <path
-            d="M12 8.5 L10 11.5 H13 L11 14.5 L14 11.5 H11 L12 8.5"
-            fill="currentColor" // Fills the charging bolt
+            d="M10 8.5 L8 11.5 H11 L9 14.5 L12 11.5 H9 L10 8.5"
+            fill="currentColor"
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -97,17 +117,17 @@ export default function Battery() {
     );
   };
 
-  const getTimeEstimate = () => {
-    if (batteryStatus.charging) {
-      return batteryStatus.chargingTime !== Infinity
-        ? `${Math.round(batteryStatus.chargingTime / 60)} min until full`
-        : 'Calculating...';
-    }
+  // const getTimeEstimate = () => {
+  //   if (batteryStatus.charging) {
+  //     return batteryStatus.chargingTime !== Infinity
+  //       ? `${Math.round(batteryStatus.chargingTime / 60)} min until full`
+  //       : 'Calculating...';
+  //   }
 
-    return batteryStatus.dischargingTime !== Infinity
-      ? `${Math.round(batteryStatus.dischargingTime / 60)} min remaining`
-      : 'Calculating...';
-  };
+  //   return batteryStatus.dischargingTime !== Infinity
+  //     ? `${Math.round(batteryStatus.dischargingTime / 60)} min remaining`
+  //     : 'Calculating...';
+  // };
 
   return (
     <div

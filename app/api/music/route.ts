@@ -12,7 +12,7 @@ interface Song {
 
 export async function GET() {
   try {
-    const musicDir = path.join(process.cwd(), 'public', 'music');
+    const musicDir = path.join(process.cwd(), 'public', 'root','Music');
     const files = await fs.readdir(musicDir);
 
     const songs: Song[] = await Promise.all(
@@ -28,7 +28,7 @@ export async function GET() {
             title: metadata.common.title || path.parse(file).name,
             artist: metadata.common.artist || 'Unknown Artist',
             album: metadata.common.album || 'Unknown Album',
-            path: `/music/${file}`,
+            path: `/root/Music/${file}`,
           };
         })
     );

@@ -26,16 +26,17 @@ export interface File {
   content?: string;
   parentId?: string | null;
   children?: File[];
+  path?: string;
 }
 
-interface navItems{
-  id: string;
+interface navItems {
+  id: string | null;
   name: string;
   icon: any;
   color?: string;
 }
 export interface sideNavItems {
-  id: string;
+  id: string | null;
   title: string;
   icon?: any;
   items: navItems[];

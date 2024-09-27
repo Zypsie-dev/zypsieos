@@ -16,7 +16,7 @@ import { SiteConfig } from '@/types';
 
 type IconComponentType =
   | React.ComponentType<{ size?: number | string }>
-  | (({size}:{size:number}) => JSX.Element);
+  | (({ size }: { size: number }) => JSX.Element);
 
 const iconComponents: Record<string, IconComponentType> = {
   Battery,
@@ -52,9 +52,9 @@ export default function TopBar() {
       maxWidth="full"
     >
       <NavbarBrand className="m-0 p-0 max-w-fit max-h-fit">
-          <Apple color="white" size="0.93rem" />
+        <Apple color="white" size="0.93rem" />
       </NavbarBrand>
-      <NavbarContent className="gap-4" justify="start">
+      <NavbarContent className="gap-4 hidden sm:flex" justify="start">
         {navItems.map((item, index) => (
           <NavbarItem
             key={item.label}
@@ -64,7 +64,7 @@ export default function TopBar() {
           </NavbarItem>
         ))}
       </NavbarContent>
-      <NavbarContent className="gap-3" justify="end">
+      <NavbarContent className="gap-3 ml-auto" justify="end">
         {navMenuIcons.map((item) => {
           const Icon = iconComponents[item.icon] || null;
 
@@ -74,7 +74,7 @@ export default function TopBar() {
             </NavbarItem>
           ) : null;
         })}
-        <NavbarItem className="text-tiny">{dateTime}</NavbarItem>
+        <NavbarItem className="text-tiny hidden sm:flex">{dateTime}</NavbarItem>
       </NavbarContent>
     </Navbar>
   );

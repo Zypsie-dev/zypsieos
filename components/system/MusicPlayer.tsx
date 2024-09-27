@@ -20,7 +20,7 @@ interface Song {
   path: string;
 }
 
-export default function MusicApp() {
+export default function MusicApp({ songName }: { songName?: string }) {
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [currentSongIndex, setCurrentSongIndex] = useState<number>(-1);
@@ -36,17 +36,33 @@ export default function MusicApp() {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const response = await fetch('/api/music');
+        const response = await fetch('/api/Music');
+
         if (!response.ok) {
           throw new Error('Failed to fetch songs');
         }
         const data = await response.json();
+
         setSongs(data);
+        console.log(data);
+
+        if (songName) {
+          //remove extension from songName
+          const name = songName.replace(/\.[^/.]+$/, '');
+          const song = data.find((song: any) => song.title === name);
+
+          if (song) {
+            setCurrentSong(song);
+            setCurrentSongIndex(data.indexOf(song));
+            setIsPlaying(true);
+          }
+        }
       } catch (error) {
         console.error('Error fetching songs:', error);
         setError('Failed to load songs. Please try again later.');
       }
     };
+
     fetchSongs();
   }, []);
 
@@ -59,6 +75,7 @@ export default function MusicApp() {
   useEffect(() => {
     if (currentSong && audioRef.current) {
       audioRef.current.src = currentSong.path;
+      audioRef.current.currentTime = currentTime; // Maintain the current time
       if (isPlaying) {
         audioRef.current.play().catch((error) => {
           console.error('Error playing audio:', error);
@@ -76,6 +93,7 @@ export default function MusicApp() {
 
   const handlePlayPause = () => {
     if (!currentSong && songs.length > 0) {
+      // Start playing the first song if no song is selected
       setCurrentSong(songs[0]);
       setCurrentSongIndex(0);
       setIsPlaying(true);
@@ -94,6 +112,7 @@ export default function MusicApp() {
 
   const handleVolumeChange = (value: number | number[]) => {
     const newVolume = Array.isArray(value) ? value[0] : value;
+
     setVolume(newVolume);
   };
 
@@ -106,6 +125,7 @@ export default function MusicApp() {
 
   const handleSeek = (value: number | number[]) => {
     const newTime = Array.isArray(value) ? value[0] : value;
+
     if (audioRef.current) {
       audioRef.current.currentTime = newTime;
       setCurrentTime(newTime);
@@ -115,6 +135,7 @@ export default function MusicApp() {
   const handleNext = () => {
     if (songs.length > 0) {
       const nextIndex = (currentSongIndex + 1) % songs.length;
+
       setCurrentSong(songs[nextIndex]);
       setCurrentSongIndex(nextIndex);
     }
@@ -124,6 +145,7 @@ export default function MusicApp() {
     if (songs.length > 0) {
       const previousIndex =
         (currentSongIndex - 1 + songs.length) % songs.length;
+
       setCurrentSong(songs[previousIndex]);
       setCurrentSongIndex(previousIndex);
     }
@@ -132,6 +154,7 @@ export default function MusicApp() {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
+
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
@@ -159,15 +182,15 @@ export default function MusicApp() {
       <div className="flex flex-1 overflow-hidden">
         <div className="w-64 bg-gray-800 p-4 overflow-y-auto">
           <Input
+            className="mb-4"
             placeholder="Search songs..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-4"
           />
           <h2 className="text-xl font-bold mb-2">Library</h2>
           <ul>
             {filteredSongs.map((song, index) => (
-              <li key={index} className='my-1'>
+              <li key={index} className="my-1">
                 <Button
                   className={`py-2 px-3 rounded cursor-pointer w-full ${
                     currentSong?.path === song.path
@@ -177,7 +200,9 @@ export default function MusicApp() {
                   onClick={() => handlePlay(song, index)}
                 >
                   <div className="font-semibold">{song.title}</div>
-                  <div className="text-sm text-gray-400 truncate">{song.artist}</div>
+                  <div className="text-sm text-gray-400 truncate">
+                    {song.artist}
+                  </div>
                 </Button>
               </li>
             ))}
@@ -187,7 +212,7 @@ export default function MusicApp() {
           <h1 className="text-4xl font-bold mb-6">Now Playing</h1>
           {currentSong && (
             <div className="text-center">
-              <div className="w-48 h-48 mx-auto bg-gray-700 rounded-lg shadow-lg mb-6"></div>
+              <div className="w-48 h-48 mx-auto bg-gray-700 rounded-lg shadow-lg mb-6" />
               <h2 className="text-2xl font-bold">{currentSong.title}</h2>
               <p className="text-gray-400">{currentSong.artist}</p>
             </div>
@@ -197,13 +222,13 @@ export default function MusicApp() {
       <div className="bg-gray-800 p-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center space-x-4">
-            <Button isIconOnly onClick={handlePrevious} variant="light">
+            <Button isIconOnly variant="light" onClick={handlePrevious}>
               <SkipBackIcon size={24} />
             </Button>
-            <Button isIconOnly onClick={handlePlayPause} variant="light">
+            <Button isIconOnly variant="light" onClick={handlePlayPause}>
               {isPlaying ? <PauseIcon size={24} /> : <PlayIcon size={24} />}
             </Button>
-            <Button isIconOnly onClick={handleNext} variant="light">
+            <Button isIconOnly variant="light" onClick={handleNext}>
               <SkipForwardIcon size={24} />
             </Button>
           </div>
@@ -211,13 +236,13 @@ export default function MusicApp() {
             <VolumeIcon size={20} />
             <Slider
               aria-label="Volume"
-              size="sm"
-              step={0.1}
+              className="w-24"
               maxValue={1}
               minValue={0}
+              size="sm"
+              step={0.1}
               value={volume}
               onChange={handleVolumeChange}
-              className="w-24"
             />
           </div>
         </div>
@@ -225,13 +250,13 @@ export default function MusicApp() {
           <span className="text-sm">{formatTime(currentTime)}</span>
           <Slider
             aria-label="Song progress"
-            size="sm"
-            step={1}
+            className="flex-1"
             maxValue={duration}
             minValue={0}
+            size="sm"
+            step={1}
             value={currentTime}
             onChange={handleSeek}
-            className="flex-1"
           />
           <span className="text-sm">{formatTime(duration)}</span>
         </div>
@@ -239,12 +264,12 @@ export default function MusicApp() {
       <audio
         ref={audioRef}
         onEnded={handleNext}
-        onTimeUpdate={handleTimeUpdate}
         onError={() => {
           setError(
             'An error occurred while playing the audio. Please try again.'
           );
         }}
+        onTimeUpdate={handleTimeUpdate}
       >
         <track kind="captions" />
       </audio>

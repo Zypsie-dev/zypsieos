@@ -2,28 +2,25 @@ import React, { useState, useEffect } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
-  Folder,
-  File as FileIcon,
   HardDrive,
   Grid,
   List,
-  Columns,
-  Share2,
-  Tag,
   Search,
   Clock,
-  File as Docs,
-  Dock
+  Columns,
+  Music,
 } from 'lucide-react';
 import { Input } from '@nextui-org/input';
 import { Card, CardBody } from '@nextui-org/card';
-import { Image } from '@nextui-org/image';
 
 import Button from './MacButton';
+import PhotoViewer from './PhotoViewer';
+import MusicPlayer from './MusicPlayer';
 
+import { renderFileIcon } from '@/lib/renderFileIcon';
 import { useFileSystem } from '@/Context/FileSystemContext';
+import { useWindowContext } from '@/Context/windowContext';
 import { File, sideNavItems } from '@/types';
-import Application from '@/public/Icons/Application';
 
 const ViewMode = {
   GRID: 'grid',
@@ -40,6 +37,7 @@ export default function Component() {
     recentFiles,
     getFilesByTag,
   } = useFileSystem();
+  const { addWindow } = useWindowContext();
   const [viewMode, setViewMode] = useState(ViewMode.GRID);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -47,38 +45,52 @@ export default function Component() {
   const [currentView, setCurrentView] = useState<'folder' | 'recent' | 'tag'>(
     'folder'
   );
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
     if (currentView === 'folder') {
-      setCurrentFiles(getChildren(currentDirectory));
+      setCurrentFiles(getChildren(currentDirectory) as any);
     } else if (currentView === 'recent') {
-      setCurrentFiles(recentFiles);
-    } else if (currentView === 'tag' && selectedTag) {
-      setCurrentFiles(getFilesByTag(selectedTag));
+      setCurrentFiles(recentFiles as any);
     }
-  }, [
-    currentDirectory,
-    currentView,
-    selectedTag,
-    getChildren,
-    recentFiles,
-    getFilesByTag,
-  ]);
+  }, [currentDirectory, currentView, getChildren, recentFiles, getFilesByTag]);
 
   const currentFolder = files.find((f) => f.id === currentDirectory);
 
   const navigateUp = () => {
     if (currentFolder && currentFolder.parentId !== null) {
-      setCurrentDirectory(currentFolder.parentId || '0');
+      setCurrentDirectory(currentFolder.parentId);
     } else {
-      setCurrentDirectory('0'); // Navigate to root
+      setCurrentDirectory(null); // Navigate to root
     }
   };
 
   const navigateTo = (file: File) => {
     if (file.type === 'folder') {
       setCurrentDirectory(file.id);
+    } else {
+      const extension = file.name.split('.').pop()?.toLowerCase();
+
+      if (
+        extension === 'jpg' ||
+        extension === 'jpeg' ||
+        extension === 'png' ||
+        extension === 'webp'
+      ) {
+        addWindow(
+          file.name,
+          <PhotoViewer photoName={file.name}/>,
+          600,
+          400
+        );
+      }
+      else if(extension === 'mp3' || extension === 'wav' || extension === 'flac') {
+        addWindow(
+          'Music',
+          <MusicPlayer songName={file.name}/>,
+          600,
+          400
+        );
+      }
     }
   };
 
@@ -87,7 +99,7 @@ export default function Component() {
     let current = currentFolder;
 
     while (current) {
-      breadcrumbs.unshift(current);
+      breadcrumbs.unshift(current as any);
       current = files.find((f) => f.id === current?.parentId);
     }
 
@@ -99,77 +111,26 @@ export default function Component() {
   );
 
 
-  const renderFileIcon = ({file,size} : {file:File , size:number}) => {
-    if (file.type === 'folder') {
-      return (
-        <Image
-          src="/icons/folder.ico"
-          width={size ? size : 48}
-          height={size ? size : 48}
-          alt="Folder"
-        />
-      );
-    } else {
-      const extension = file.name.split('.').pop()?.toLowerCase();
 
-      switch (extension) {
-        case 'pdf':
-          return <FileIcon size={32} className="text-red-500" />;
-        case 'doc':
-        case 'docx':
-          return <FileIcon size={32} className="text-blue-600" />;
-        case 'xls':
-        case 'xlsx':
-          return <FileIcon size={32} className="text-green-600" />;
-
-          solid: return <FileIcon size={32} className="text-gray-500" />;
-      }
-    }
-  };
-
-  const sidebarItems : sideNavItems[] = [
+  const sidebarItems: sideNavItems[] = [
     {
       id: 'favorites',
       title: 'Favorites',
       items: [
-        { id: '0', name: 'Zypsie', icon: HardDrive },
+        { id: null, name: 'Filesystem', icon: HardDrive },
         { id: 'recents', name: 'Recents', icon: Clock },
-        {id: '1', name: 'Desktop', icon: Dock},
-        { id: '2', name: 'Documents', icon: Docs },
-        { id: '3', name: 'Applications', icon: Application },
       ],
     },
-    // {
-    //   id: 'tags',
-    //   title: 'Tags',
-    //   items: [
-    //     { id: 'work', name: 'Work', icon: Tag, color: 'text-blue-500' },
-    //     {
-    //       id: 'personal',
-    //       name: 'Personal',
-    //       icon: Tag,
-    //       color: 'text-green-500',
-    //     },
-    //     { id: 'system', name: 'System', icon: Tag, color: 'text-red-500' },
-    //   ],
-    // },
   ];
 
-  const handleSidebarItemClick = (itemId: string) => {
+  const handleSidebarItemClick = (itemId: string | null) => {
     switch (itemId) {
-      case 'airdrop':
-      case 'icloud-drive':
-      case 'shared':
-        alert(`Navigating to ${itemId} is not implemented in this demo.`);
-        break;
       case 'recents':
         setCurrentView('recent');
         break;
-      case 'work':
-      case 'personal':
-      case 'system':
-        setCurrentView('tag');
-        setSelectedTag(itemId);
+      case null:
+        setCurrentView('folder');
+        setCurrentDirectory(null);
         break;
       default:
         const folder = files.find((f) => f.id === itemId);
@@ -292,7 +253,7 @@ export default function Component() {
               {filteredFiles.map((file) => (
                 <button
                   key={file.id}
-                  className="flex flex-col items-center macos-hand"
+                  className="flex flex-col items-center macos-hand max-w-20"
                   onClick={() => navigateTo(file)}
                 >
                   {renderFileIcon({ file, size: 48 })}
@@ -344,7 +305,7 @@ export default function Component() {
                     <button
                       key={file.id}
                       className="flex items-center w-full p-1 hover:bg-gray-100 rounded"
-                      onClick={() => navigateTo(file)}
+                      onClick={() => navigateTo(file as any)}
                     >
                       {renderFileIcon({ file, size: 20 })}
                       <span className="ml-2 truncate">{file.name}</span>

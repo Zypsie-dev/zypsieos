@@ -5,14 +5,20 @@ import { motion } from 'framer-motion';
 import { Tooltip } from '@nextui-org/tooltip';
 import Image from 'next/image';
 
+import AboutMe from '../aboutme';
+import WelcomeDialog from '../welcome';
+import Terminal from './TerminalComponent';
 import Music from './MusicPlayer';
 import Finder from './Finder'; 
 import MailWindow from './mail/mailWindow';
+import Photos from './Photos';
+
 
 import { useWindowContext } from '@/Context/windowContext';
 import { siteConfig } from '@/config/site';
 
 const dockMenu = siteConfig.dockMenu;
+
 
 export default function Dock() {
   const { windows, setWindowState, addWindow, restoreWindow } =
@@ -38,17 +44,20 @@ export default function Dock() {
         case 'Music':
           addWindow(appId, <Music />, 600, 400);
           break;
+        case 'Photos':
+          addWindow(appId, <Photos />, 600, 400);
+          break;
+        case 'Terminal':
+          addWindow(appId, <Terminal/>, 600, 400);
+          break;
+        case 'aboutMe':
+          addWindow(appId, <AboutMe />, 600, 400);
+          break;
         default:
-          addWindow(appId, <div />,500,500);
+          addWindow(appId, <div />, 500, 500);
           break;
       }
-      // if(appId === 'Finder'){
-      //   addWindow(appId,<Finder/>,600,400);
-      //   <Finder/>
-      // }
-      
-      // else
-      //   addWindow(appId, <div />);
+
     }
   };
 

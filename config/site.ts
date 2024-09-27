@@ -55,8 +55,9 @@ export const siteConfig = {
     {
       name: 'Terminal',
       icon: '/icons/dock/terminal.png',
-      id: 'terminal-window',
+      id: 'Terminal',
     },
+    { name: 'About Me', icon: '/icons/dock/aboutme.svg', id: 'aboutMe' },
   ],
   appleMenu: [
     { key: 'about', label: 'About This Mac', section: true },
@@ -81,7 +82,7 @@ export const siteConfig = {
       label: 'Shut Down',
       section: false,
       onCLick: 'shutdown',
-    }
+    },
   ],
   links: {
     github: 'https://github.com/nextui-org/nextui',
