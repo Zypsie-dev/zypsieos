@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 import '@/styles/globals.css';
 import ventura from '@/public/ventura.jpg';
@@ -31,6 +32,7 @@ export default function RootLayout({
         )}
         style={{ backgroundImage: `url(${ventura.src})` }}
       >
+      <Analytics />
         {children}
       </body>
     </html>

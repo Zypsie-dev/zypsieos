@@ -109,7 +109,7 @@ export default function WelcomeDialog({ onClose:onClose }:{onClose:()=>void}) {
       exit="exit"
       className="w-full h-full flex items-center justify-center overflow-hidden bg-gray-900 bg-opacity-50 backdrop-blur-md"
     >
-      <Card className="w-full h-full mx-auto bg-gradient-to-br from-gray-800 to-gray-900 text-white shadow-2xl rounded-3xl overflow-hidden">
+      <Card className="w-full h-full mx-auto bg-gradient-to-br from-gray-800 to-gray-900 text-white shadow-2xl overflow-hidden">
         <CardHeader className="flex justify-center pt-4 pb-0">
           <motion.div variants={itemVariants}>
             <img src='/dragon.png' alt='Logo' className='w-32 h-32 mx-auto'/>
