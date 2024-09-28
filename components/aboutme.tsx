@@ -58,14 +58,14 @@ export default function WelcomeContent() {
 
   const experience: Experience[] = [
     {
-      position: 'Full Stack Developer',
-      company: 'Tech Solutions Inc.',
-      period: '2022-Present',
+      position: 'Backend Developer',
+      company: 'Yuwasoft Tech Solutions Inc.',
+      period: 'Sep 2024 - Present',
     },
     {
       position: 'Web Development Intern',
-      company: 'StartUp Co.',
-      period: 'Summer 2021',
+      company: 'Codynn',
+      period: 'March 2024 - Sep 2024',
     },
   ];
 
