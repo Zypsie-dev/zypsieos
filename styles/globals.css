@@ -11,8 +11,7 @@
   --color-danger: #ff4d4f; /* Red */
   --color-focus: #60a5fa; /* Light Blue */
   --color-divider: #e5e7eb; /* Light Gray */
-  --color-dgreen :#10b981;
-
+  --color-dgreen: #10b981;
 }
 
 /* Dark mode */
@@ -20,7 +19,7 @@
   --color-primary: #4b5563; /* Slate Gray */
   --color-secondary: #4b5563; /* Emerald Green */
   --color-success: #10b981; /* Slate Gray */
-  --color-dgreen :#10b981;
+  --color-dgreen: #10b981;
   --color-warning: #f59e0b; /* Amber */
   --color-danger: #ff4d4f; /* Red */
   --color-focus: #60a5fa; /* Light Blue */
@@ -54,6 +53,30 @@
   .macos-hand {
     cursor: url('/cursor/hand2.svg'), pointer;
   }
+
+  /* Modern project card utilities */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .project-card-shadow-hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .gradient-border {
+    background: linear-gradient(white, white) padding-box,
+      linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899) border-box;
+    border: 2px solid transparent;
+  }
 }
 
 /* Styling for Webkit browsers (Chrome, Safari, newer versions of Edge) */
@@ -73,8 +96,7 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
-    cursor: url('/cursor/hand2.svg'), pointer;
-
+  cursor: url('/cursor/hand2.svg'), pointer;
 }
 
 /* Styling for Firefox */

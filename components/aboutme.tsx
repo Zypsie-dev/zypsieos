@@ -10,10 +10,14 @@ import {
   Briefcase,
   GraduationCap,
   ExternalLink,
+  Download,
+  MapPin,
+  Calendar,
+  Award,
+  Code,
 } from 'lucide-react';
 
 import { useWindowContext } from '@/Context/windowContext';
-
 
 interface Project {
   name: string;
@@ -58,18 +62,103 @@ export default function WelcomeContent() {
 
   const experience: Experience[] = [
     {
-      position: 'Backend Developer',
-      company: 'Yuwasoft Tech Solutions Inc.',
-      period: 'Sep 2024 - Present',
+      position: 'Full Stack Developer',
+      company: 'Webstudio Nepal',
+      period: 'Feb 2025 - Present',
     },
     {
-      position: 'Web Development Intern',
+      position: 'Backend Developer',
+      company: 'Yuwasoft Tech Solutions Inc.',
+      period: 'May 2024 - Jan 2025',
+    },
+    {
+      position: 'Full stack',
       company: 'Codynn',
-      period: 'March 2024 - Sep 2024',
+      period: 'March 2023 - Apr 2024',
     },
   ];
 
   const projects: Project[] = [
+    {
+      name: 'Restaurant Management System',
+      description:
+        'Comprehensive backend system for restaurant operations including billing, inventory management, order processing, and staff management. Features real-time order tracking, payment processing, and detailed analytics dashboard.',
+      tags: [
+        'backend',
+        'nodejs',
+        'express',
+        'mongodb',
+        'api',
+        'billing',
+        'inventory',
+      ],
+      link: 'https://akhabare.restaurantbilling.com/',
+      image: '/projects/restaurant-management.png',
+    },
+    {
+      name: 'Gold Management System',
+      description:
+        'Full-stack jewelry management platform with separate customer and admin portals. Features inventory tracking, price management, customer orders, and comprehensive reporting for gold and jewelry business operations.',
+      tags: [
+        'fullstack',
+        'react',
+        'nodejs',
+        'mongodb',
+        'inventory',
+        'ecommerce',
+        'admin-panel',
+      ],
+      link: 'https://barungems.webstudiomatrix.com/',
+      image: '/projects/gold-management.png',
+    },
+    {
+      name: 'Hotel Management System',
+      description:
+        'Complete hotel management solution with room booking, guest management, billing, housekeeping, and staff coordination. Includes real-time availability, payment processing, and comprehensive reporting features.',
+      tags: [
+        'fullstack',
+        'react',
+        'nodejs',
+        'booking',
+        'payment',
+        'management',
+        'hospitality',
+      ],
+      link: 'https://hotel.webstudiomatrix.com/',
+      image: '/projects/hotel-management.png',
+    },
+    {
+      name: 'Bhansamart E-commerce',
+      description:
+        'Full-featured e-commerce platform with product catalog, shopping cart, payment gateway integration, order management, and customer portal. Includes admin dashboard for inventory and order management.',
+      tags: [
+        'fullstack',
+        'ecommerce',
+        'react',
+        'nodejs',
+        'payment-gateway',
+        'shopping-cart',
+        'admin-panel',
+      ],
+      link: 'https://bhansamart.com/',
+      image: '/projects/ecommerce.png',
+    },
+    {
+      name: 'CTEVT College Management',
+      description:
+        'Educational institution management system for CTEVT colleges featuring student enrollment, course management, examination system, grade tracking, and administrative workflows for technical education.',
+      tags: [
+        'fullstack',
+        'education',
+        'student-management',
+        'examination',
+        'grades',
+        'administration',
+        'ctevt',
+      ],
+      link: 'https://kalika.ctevtnepal.com/',
+      image: '/projects/college-management.png',
+    },
     {
       name: 'Coding battle',
       description:
@@ -168,11 +257,14 @@ export default function WelcomeContent() {
   const About = {
     name: 'Nabin Shrestha',
     role: 'Full Stack Developer',
+    location: 'Nepal',
     description:
-      'Hello! I``m a dynamic and resourceful computer science student with a passion for full-stack development. Skilled in crafting responsive front-end interfaces and building robust backend systems, I excel at creating end-to-end solutions. Leveraging modern technologies like Next.js, React, Node.js, and WebSockets, I strive to deliver seamless, real-time applications. My experience ranges from developing HR management systems to real-time coding battle platforms, and I am eager to bring my holistic understanding of full-stack development to innovative projects.',
+      "Hello! I'm a dynamic and resourceful computer science student with a passion for full-stack development. Skilled in crafting responsive front-end interfaces and building robust backend systems, I excel at creating end-to-end solutions. Leveraging modern technologies like Next.js, React, Node.js, and WebSockets, I strive to deliver seamless, real-time applications. My experience ranges from developing HR management systems to real-time coding battle platforms, and I am eager to bring my holistic understanding of full-stack development to innovative projects.",
     github: 'https://github.com/Zypsie-dev',
     linkedin: 'https://www.linkedin.com/in/zypsie/',
     gmail: 'nabinshrtz1@gmail.com',
+    yearsOfExperience: '2+',
+    projectsCompleted: '10+',
   };
 
   const tabVariants = {
@@ -231,21 +323,31 @@ export default function WelcomeContent() {
   }, [currentWindow]);
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 text-gray-100 overflow-hidden">
-      <div className="flex p-2 bg-gray-800 rounded-lg m-4">
-        {['about', 'projects'].map((tab) => (
+    <div className="flex flex-col h-full bg-white text-gray-900 overflow-hidden">
+
+      {/* Tab navigation */}
+      <div className="flex bg-gray-100 border-b border-gray-200">
+        {[
+          { id: 'about', label: 'About', icon: Briefcase },
+          { id: 'projects', label: 'Projects', icon: Code },
+        ].map((tab) => (
           <motion.button
-            key={tab}
-            className={`flex-1 px-4 py-2 rounded-md ${activeTab === tab ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'}`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setActiveTab(tab)}
+            key={tab.id}
+            className={`flex items-center space-x-2 px-6 py-3 text-sm font-medium transition-colors ${
+              activeTab === tab.id
+                ? 'text-blue-600 border-b-2 border-blue-600 bg-white'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+            }`}
+            whileHover={{ y: -1 }}
+            whileTap={{ y: 0 }}
+            onClick={() => setActiveTab(tab.id)}
           >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            <tab.icon size={16} />
+            <span>{tab.label}</span>
           </motion.button>
         ))}
       </div>
-      <div className="flex-grow overflow-y-auto px-6 pb-6">
+      <div className="flex-grow overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -256,141 +358,218 @@ export default function WelcomeContent() {
             variants={tabVariants}
           >
             {activeTab === 'about' && (
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <Image
-                    alt="Profile"
-                    className="w-24 h-24 rounded-full border-4 border-blue-500 object-cover"
-                    src="/me.JPG"
-                  />
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">
-                      {About.name}
-                    </h3>
-                    <p className="text-blue-400">{About.role}</p>
+              <div className="p-6 space-y-8">
+                {/* Hero Section */}
+                <div className="flex flex-col lg:flex-row items-start space-y-6 lg:space-y-0 lg:space-x-8">
+                  <div className="flex-shrink-0">
+                    <Image
+                      alt="Profile"
+                      className="w-32 h-32 rounded-2xl shadow-lg object-cover border-2 border-gray-200"
+                      src="/me.JPG"
+                    />
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h2 className="text-3xl font-bold text-gray-900">
+                        {About.name}
+                      </h2>
+                      <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                        Available for hire
+                      </span>
+                    </div>
+                    <p className="text-xl text-blue-600 font-medium mb-3">
+                      {About.role}
+                    </p>
+                    <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center space-x-1">
+                        <MapPin size={16} />
+                        <span>{About.location}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Calendar size={16} />
+                        <span>{About.yearsOfExperience} years experience</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Award size={16} />
+                        <span>
+                          {About.projectsCompleted} projects completed
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">
+                      {About.description}
+                    </p>
                   </div>
                 </div>
-                <p className="text-lg text-gray-300">{About.description}</p>
-                <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-white flex items-center">
-                    <GraduationCap className="mr-2" /> Education
-                  </h4>
-                  <ul className="list-disc list-inside text-gray-300 space-y-2">
-                    {education.map((edu, index) => (
-                      <li key={index}>
-                        {edu.degree}, {edu.institution}, {edu.year}
-                      </li>
-                    ))}
-                  </ul>
+
+                {/* Quick Actions */}
+                <div className="flex flex-wrap gap-3">
+                  <motion.a
+                    className="flex items-center space-x-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                    href={About.github}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Github size={18} />
+                    <span>GitHub</span>
+                  </motion.a>
+                  <motion.a
+                    className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    href={About.linkedin}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Linkedin size={18} />
+                    <span>LinkedIn</span>
+                  </motion.a>
+                  <motion.a
+                    className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                    href={`mailto:${About.gmail}`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Mail size={18} />
+                    <span>Email</span>
+                  </motion.a>
                 </div>
-                <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-white flex items-center">
-                    <Briefcase className="mr-2" /> Experience
-                  </h4>
-                  <ul className="list-disc list-inside text-gray-300 space-y-2">
-                    {experience.map((exp, index) => (
-                      <li key={index}>
-                        {exp.position}, {exp.company}, {exp.period}
-                      </li>
-                    ))}
-                  </ul>
+                {/* Education & Experience Grid */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Education */}
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 flex items-center mb-4">
+                      <GraduationCap className="mr-2 text-blue-600" size={20} />
+                      Education
+                    </h3>
+                    <div className="space-y-4">
+                      {education.map((edu, index) => (
+                        <div
+                          key={index}
+                          className="border-l-4 border-blue-500 pl-4"
+                        >
+                          <h4 className="font-semibold text-gray-900">
+                            {edu.degree}
+                          </h4>
+                          <p className="text-gray-600">{edu.institution}</p>
+                          <p className="text-sm text-gray-500">{edu.year}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Experience */}
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 flex items-center mb-4">
+                      <Briefcase className="mr-2 text-green-600" size={20} />
+                      Experience
+                    </h3>
+                    <div className="space-y-4">
+                      {experience.map((exp, index) => (
+                        <div
+                          key={index}
+                          className="border-l-4 border-green-500 pl-4"
+                        >
+                          <h4 className="font-semibold text-gray-900">
+                            {exp.position}
+                          </h4>
+                          <p className="text-gray-600">{exp.company}</p>
+                          <p className="text-sm text-gray-500">{exp.period}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  <h4 className="text-xl font-semibold text-white">
+                {/* Tech Stack */}
+                <div className="bg-gray-50 rounded-xl p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 flex items-center mb-6">
+                    <Code className="mr-2 text-purple-600" size={20} />
                     Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-4">
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {techStack.map((tech, index) => (
                       <TechIcon key={index} name={tech.name} icon={tech.icon} />
                     ))}
                   </div>
                 </div>
-                <div className="flex space-x-4 pb-2">
-                  <motion.a
-                    className="p-2 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-colors"
-                    href={About.github}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Github size={24} />
-                  </motion.a>
-                  <motion.a
-                    className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-600 transition-colors"
-                    href={About.linkedin}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Linkedin size={24} />
-                  </motion.a>
-                  <motion.a
-                    className="p-2 bg-red-700 text-white rounded-full hover:bg-red-600 transition-colors"
-                    href={`mailto:${About.gmail}`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Mail size={24} />
-                  </motion.a>
-                </div>
               </div>
             )}
             {activeTab === 'projects' && (
-              <div className={`grid grid-cols-1 sm:grid-cols-${columns} gap-4`}>
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    className="relative overflow-hidden rounded-lg shadow-lg group h-full"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      alt={project.name}
-                      className="w-full h-48 object-cover"
-                      src={project.image}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/70 opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
-                    <div className="absolute inset-0 p-4 flex flex-col justify-end min-h-fit">
-                      <h4
-                        className={`${isCompact ? 'text-lg' : 'text-xl'} font-bold text-white mb-2 drop-shadow-lg`}
-                      >
-                        {project.name}
-                      </h4>
-                      <p
-                        className={`${isCompact ? 'text-xs' : 'text-sm'} text-gray-100 mb-2 drop-shadow-md`}
-                      >
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {project.tags.map((tag, tagIndex) => (
-                          <Image
-                            key={tagIndex}
-                            alt={tag}
-                            className={`w-10 h-10 object-cover ${tag === 'express' || tag === 'socketio' ? 'bg-gray-400' : ''} rounded-full`}
-                            src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-${tag === 'tailwincss' || tag === 'graphql' ? 'plain' : 'original'}.svg`}
-                          />
-                        ))}
+              <div className="p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {projects.map((project, index) => (
+                    <motion.div
+                      key={index}
+                      className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-gray-200 transition-all duration-500"
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    >
+                      {/* Project Image with Enhanced Overlay */}
+                      <div className="relative h-52 overflow-hidden">
+                        <img
+                          alt={project.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          src={project.image}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+
+                        {/* Floating Action Button */}
+                        {project.link && (
+                          <motion.a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:bg-white hover:text-blue-600 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            whileTap={{ scale: 0.9 }}
+                          >
+                            <ExternalLink size={16} />
+                          </motion.a>
+                        )}
+
+                        {/* Project Title Overlay */}
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-xl font-bold text-white mb-1 drop-shadow-lg">
+                            {project.name}
+                          </h3>
+                        </div>
                       </div>
-                      {project.link && (
-                        <motion.a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center text-primary-foreground hover:text-primary-foreground/90 font-semibold ${isCompact ? 'text-xs' : 'text-sm'}`}
-                          whileHover={{ x: 5 }}
-                        >
-                          View Project{' '}
-                          <ExternalLink
-                            size={isCompact ? 12 : 14}
-                            className="ml-1"
-                          />
-                        </motion.a>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
+
+                      {/* Content Section */}
+                      <div className="p-6">
+                        <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-3">
+                          {project.description}
+                        </p>
+
+                        {/* Modern Tags with Icons */}
+                        <div className="flex flex-wrap gap-2.5">
+                          {project.tags.map((tag, tagIndex) => (
+                            <motion.div
+                              key={tagIndex}
+                              className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-indigo-50 rounded-xl border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-md transition-all duration-300"
+                              whileHover={{ scale: 1.05, y: -2 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <Image
+                                alt={tag}
+                                className="w-4 h-4 object-cover rounded"
+                                src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-${tag === 'tailwindcss' || tag === 'graphql' ? 'plain' : 'original'}.svg`}
+                              />
+                              <span className="text-xs font-semibold text-gray-700 hover:text-blue-700 capitalize transition-colors duration-200">
+                                {tag}
+                              </span>
+                            </motion.div>
+                          ))}
+                        </div>
+
+                        {/* Bottom Accent Line */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             )}
           </motion.div>
@@ -402,13 +581,20 @@ export default function WelcomeContent() {
 
 function TechIcon({ name, icon }: { name: string; icon: string }) {
   return (
-    <div className="flex flex-col items-center">
+    <motion.div
+      className="flex flex-col items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
       <Image
         alt={name}
-        className={`w-10 h-10 object-cover ${icon === 'express' || icon === 'socketio' ? 'bg-gray-400' : ''} rounded-full`}
-        src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon}/${icon}-${icon === 'tailwincss' || icon === 'graphql' ? 'plain' : 'original'}.svg`}
+        className={`w-8 h-8 object-cover ${icon === 'express' || icon === 'socketio' ? 'bg-gray-400 rounded' : ''}`}
+        src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon}/${icon}-${icon === 'tailwindcss' || icon === 'graphql' ? 'plain' : 'original'}.svg`}
       />
-      <span className="text-sm mt-1 text-gray-400">{name}</span>
-    </div>
+      <span className="text-xs mt-2 text-gray-700 font-medium text-center">
+        {name}
+      </span>
+    </motion.div>
   );
 }
+
